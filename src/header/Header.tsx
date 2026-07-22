@@ -78,6 +78,7 @@ const Header = ({
         org={org}
         number={number}
         title={title}
+        contextId={contextId}
         isHiddenMainMenu={isHiddenMainMenu}
         mainMenuDropdowns={mainMenuDropdowns}
         outlineLink={getOutlineLink()}
