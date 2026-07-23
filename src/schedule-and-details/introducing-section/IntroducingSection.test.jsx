@@ -81,13 +81,13 @@ describe('<IntroducingSection />', () => {
   });
 
   it('renders successfully', () => {
-    const { getByText, getByLabelText } = render(<RootWrapper {...props} />);
+    const { getByText, getAllByText, getByLabelText } = render(<RootWrapper {...props} />);
     expect(getByText(messages.introducingTitle.defaultMessage)).toBeInTheDocument();
     expect(getByText(messages.introducingDescription.defaultMessage)).toBeInTheDocument();
     expect(getByText(messages.courseShortDescriptionLabel.defaultMessage)).toBeInTheDocument();
     expect(getByText(messages.courseShortDescriptionHelpText.defaultMessage)).toBeInTheDocument();
     expect(getByLabelText(messages.courseShortDescriptionLabel.defaultMessage)).toBeInTheDocument();
-    expect(getByText(messages.courseOverviewLabel.defaultMessage)).toBeInTheDocument();
+    expect(getAllByText(messages.courseOverviewLabel.defaultMessage)).toHaveLength(2);
     expect(getByText(messages.courseAboutSidebarLabel.defaultMessage)).toBeInTheDocument();
   });
 

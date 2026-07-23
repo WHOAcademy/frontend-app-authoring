@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { AppContext } from '@edx/frontend-platform/react';
 import {
   useIntl,
   FormattedMessage,
 } from '@edx/frontend-platform/i18n';
-import { Form, Hyperlink } from '@openedx/paragon';
+import { Button, Form, Hyperlink } from '@openedx/paragon';
 
 import CourseUploadImage from '../../generic/course-upload-image';
 import { WysiwygEditor } from '../../generic/WysiwygEditor';
@@ -17,6 +18,7 @@ const IntroducingSection = ({
   title,
   subtitle,
   duration,
+  courseId,
   overview,
   introVideo,
   description,
@@ -33,6 +35,8 @@ const IntroducingSection = ({
   onChange,
 }) => {
   const intl = useIntl();
+  const { config } = useContext(AppContext);
+  const overviewUrl = `${config.OPENEDX_EXTENSION_FRONTEND_URL}/courses/${courseId}/overview`;
   const overviewHelpText = (
     <FormattedMessage
       id="course-authoring.schedule-section.introducing.course-overview.help-text"
@@ -87,7 +91,7 @@ const IntroducingSection = ({
         />
       )}
       {shortDescriptionEditable && (
-        <Form.Group className="form-group-custom">
+        <Form.Group className="form-group-custom d-none">
           <Form.Label>
             {intl.formatMessage(messages.courseShortDescriptionLabel)}
           </Form.Label>
@@ -109,6 +113,20 @@ const IntroducingSection = ({
       {aboutPageEditable && (
         <>
           <Form.Group className="form-group-custom">
+            <Form.Label>{intl.formatMessage(messages.courseOverviewLabel)}</Form.Label>
+            <p className="small text-gray-700">{intl.formatMessage(messages.courseOverviewInfoText1)}</p>
+            <p className="small text-gray-700">{intl.formatMessage(messages.courseOverviewInfoText2)}</p>
+            <Button
+              as="a"
+              href={overviewUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="primary"
+            >
+              {intl.formatMessage(messages.courseOverviewButtonLabel)}
+            </Button>
+          </Form.Group>
+          <Form.Group className="form-group-custom d-none">
             <Form.Label>{intl.formatMessage(messages.courseOverviewLabel)}</Form.Label>
             <WysiwygEditor
               initialValue={overview}
@@ -184,6 +202,7 @@ IntroducingSection.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
   duration: PropTypes.string,
+  courseId: PropTypes.string.isRequired,
   description: PropTypes.string,
   overview: PropTypes.string,
   introVideo: PropTypes.string,
