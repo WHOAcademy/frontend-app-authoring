@@ -283,6 +283,7 @@ const ScheduleAndDetails = ({ courseId }) => {
                     title={title}
                     overview={initialOverview}
                     duration={duration}
+                    courseId={courseId}
                     subtitle={subtitle}
                     introVideo={introVideo}
                     description={description}
