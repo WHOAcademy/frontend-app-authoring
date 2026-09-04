@@ -17,6 +17,7 @@ export interface CourseOutline {
   initialUserClipboard: Object;
   languageCode: string;
   lmsLink: string;
+  lxpLink: string;
   mfeProctoredExamSettingsUrl: string;
   notificationDismissUrl: string;
   proctoringErrors: string[];
