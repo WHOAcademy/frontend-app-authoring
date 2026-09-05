@@ -4,6 +4,7 @@ import { useIntl } from '@edx/frontend-platform/i18n';
 import { type Container, useToggle } from '@openedx/paragon';
 
 import { useWaffleFlags } from '../data/apiHooks';
+import { useHelpUrls } from '../help-urls/hooks';
 import { SearchModal } from '../search-modal';
 import {
   useContentMenuItems, useLibraryToolsMenuItems, useSettingMenuItems, useToolsMenuItems,
@@ -33,6 +34,7 @@ const Header = ({
 }: HeaderProps) => {
   const intl = useIntl();
   const waffleFlags = useWaffleFlags();
+  const { home: helpUrl } = useHelpUrls(['home']);
 
   const [isShowSearchModalOpen, openSearchModal, closeSearchModal] = useToggle(false);
 
@@ -83,6 +85,7 @@ const Header = ({
         mainMenuDropdowns={mainMenuDropdowns}
         outlineLink={getOutlineLink()}
         searchButtonAction={meiliSearchEnabled ? openSearchModal : undefined}
+        helpUrl={helpUrl || undefined}
         containerProps={containerProps}
         isNewHomePage={waffleFlags.useNewHomePage}
       />
