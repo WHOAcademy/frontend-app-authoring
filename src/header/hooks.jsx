@@ -80,12 +80,6 @@ export const useSettingMenuItems = courseId => {
       }] : []
     ),
   ];
-  if (getConfig().ENABLE_CERTIFICATE_PAGE === 'true' || waffleFlags.useNewCertificatesPage) {
-    items.push({
-      href: `/course/${courseId}/certificates`,
-      title: intl.formatMessage(messages['header.links.certificates']),
-    });
-  }
   return items;
 };
 
