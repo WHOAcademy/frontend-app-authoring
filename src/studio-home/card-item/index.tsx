@@ -268,7 +268,7 @@ const CardItem: React.FC<Props> = ({
                   {messages.btnReRunText.defaultMessage}
                 </Dropdown.Item>
               )}
-              <Dropdown.Item href={lmsLink}>
+              <Dropdown.Item href={lmsLink} target="_blank" rel="noopener noreferrer">
                 {intl.formatMessage(messages.viewLiveBtnText)}
               </Dropdown.Item>
             </Dropdown.Menu>
