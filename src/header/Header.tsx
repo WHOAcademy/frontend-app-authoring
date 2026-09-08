@@ -34,7 +34,7 @@ const Header = ({
 }: HeaderProps) => {
   const intl = useIntl();
   const waffleFlags = useWaffleFlags();
-  const { home: helpUrl } = useHelpUrls(['home']);
+  const { outline: helpUrl } = useHelpUrls(['outline']);
 
   const [isShowSearchModalOpen, openSearchModal, closeSearchModal] = useToggle(false);
 
