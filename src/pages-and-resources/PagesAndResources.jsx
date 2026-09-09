@@ -38,7 +38,7 @@ const PagesAndResources = ({ courseId }) => {
   const courseAppsApiStatus = useSelector(getCourseAppsApiStatus);
 
   const { config } = useContext(AppContext);
-  const learningCourseURL = `${config.LEARNING_BASE_URL}/course/${courseId}`;
+  const learningCourseURL = `${getConfig().LEARNING_EXPERIENCE_PLATFORM_URL}/coursewares/${courseId}`;
   const redirectUrl = `/course/${courseId}/pages-and-resources`;
 
   // The pages here are driven by course apps. The list of course app IDs comes from the LMS API.
