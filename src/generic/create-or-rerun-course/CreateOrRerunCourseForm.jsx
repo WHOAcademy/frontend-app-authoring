@@ -149,23 +149,26 @@ const CreateOrRerunCourseForm = ({
     onClickCancel();
   };
 
-  const renderOrgField = (field) => (
-    <Dropdown className="mr-2">
-      <Dropdown.Toggle id={`${field.name}-dropdown`} variant="outline-primary">
-        {field.value || intl.formatMessage(messages.courseOrgNoOptions)}
-      </Dropdown.Toggle>
-      <Dropdown.Menu>
-        {field.options?.map((value) => (
-          <Dropdown.Item
-            key={value}
-            onClick={() => setFieldValue(field.name, value)}
-          >
-            {value}
-          </Dropdown.Item>
-        ))}
-      </Dropdown.Menu>
-    </Dropdown>
-  );
+  const renderOrgField = (field) => {
+    const selectedOrg = field.options?.find((option) => option.id === field.value);
+    return (
+      <Dropdown className="mr-2">
+        <Dropdown.Toggle id={`${field.name}-dropdown`} variant="outline-primary">
+          {selectedOrg?.name || intl.formatMessage(messages.courseOrgNoOptions)}
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          {field.options?.map((option) => (
+            <Dropdown.Item
+              key={option.id}
+              onClick={() => setFieldValue(field.name, option.id)}
+            >
+              {option.name}
+            </Dropdown.Item>
+          ))}
+        </Dropdown.Menu>
+      </Dropdown>
+    );
+  };
 
   useEffect(() => {
     // it needs to display the initial focus for the field depending on the current page

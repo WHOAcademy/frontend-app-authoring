@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getConfig } from '@edx/frontend-platform';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -7,15 +8,12 @@ import { useNavigate } from 'react-router-dom';
 
 import { REGEX_RULES } from '../../constants';
 import { RequestStatus, MAX_TOTAL_LENGTH, TOTAL_LENGTH_KEY } from '../../data/constants';
-import { getStudioHomeData } from '../../studio-home/data/selectors';
 import {
   getRedirectUrlObj,
-  getOrganizations,
   getPostErrors,
   getSavingStatus,
 } from '../data/selectors';
 import { updateSavingStatus, updatePostErrors } from '../data/slice';
-import { fetchOrganizationsQuery } from '../data/thunks';
 import messages from './messages';
 
 const useCreateOrRerunCourse = (initialValues) => {
@@ -24,15 +22,10 @@ const useCreateOrRerunCourse = (initialValues) => {
   const navigate = useNavigate();
   const redirectUrlObj = useSelector(getRedirectUrlObj);
   const createOrRerunCourseSavingStatus = useSelector(getSavingStatus);
-  const allOrganizations = useSelector(getOrganizations);
   const postErrors = useSelector(getPostErrors);
-  const {
-    canCreateOrganizations,
-    allowedOrganizations,
-  } = useSelector(getStudioHomeData);
   const [isFormFilled, setFormFilled] = useState(false);
   const [showErrorBanner, setShowErrorBanner] = useState(false);
-  const organizations = canCreateOrganizations ? allOrganizations : allowedOrganizations;
+  const organizations = getConfig().LEARNING_SPACES || [];
 
   const { specialCharsRule, noSpaceRule } = REGEX_RULES;
   const validationSchema = Yup.object().shape({
@@ -76,12 +69,6 @@ const useCreateOrRerunCourse = (initialValues) => {
     validateOnBlur: false,
     validationSchema,
   });
-
-  useEffect(() => {
-    if (canCreateOrganizations) {
-      dispatch(fetchOrganizationsQuery());
-    }
-  }, []);
 
   useEffect(() => {
     setFormFilled(
