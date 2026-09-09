@@ -28,7 +28,7 @@ const messages = defineMessages({
   },
   courseOrgNoOptions: {
     id: 'course-authoring.create-or-rerun-course.org.no-options',
-    defaultMessage: 'No options',
+    defaultMessage: 'Select organization',
   },
   courseOrgCreateHelpText: {
     id: 'course-authoring.create-or-rerun-course.create.org.help-text',
