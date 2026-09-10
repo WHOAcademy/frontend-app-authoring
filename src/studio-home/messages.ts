@@ -53,6 +53,71 @@ const messages = defineMessages({
     id: 'course-authoring.studio-home.btn.view-live.text',
     defaultMessage: 'View live',
   },
+  btnDeleteCourseText: {
+    id: 'course-authoring.studio-home.btn.delete-course.text',
+    defaultMessage: 'Delete course',
+  },
+  deleteCourseModalTitle: {
+    id: 'course-authoring.studio-home.delete-course.modal.title',
+    defaultMessage: 'Delete this course permanently?',
+  },
+  deleteCourseModalWarningTitle: {
+    id: 'course-authoring.studio-home.delete-course.modal.warning-title',
+    defaultMessage: 'Warning: Deleting a course is permanent',
+  },
+  deleteCourseModalWarningIrreversible: {
+    id: 'course-authoring.studio-home.delete-course.modal.warning.irreversible',
+    defaultMessage: 'This action is irreversible.',
+  },
+  deleteCourseModalWarningLinks: {
+    id: 'course-authoring.studio-home.delete-course.modal.warning.links',
+    defaultMessage: 'Any linked pages may break with a "page not found" error.',
+  },
+  deleteCourseModalWarningLearners: {
+    id: 'course-authoring.studio-home.delete-course.modal.warning.learners',
+    defaultMessage: 'If students are enrolled, their experience will be disrupted.',
+  },
+  deleteCourseModalWarningData: {
+    id: 'course-authoring.studio-home.delete-course.modal.warning.data',
+    defaultMessage: 'All enrollments and data will be deleted.',
+  },
+  deleteCourseModalBody: {
+    id: 'course-authoring.studio-home.delete-course.modal.body',
+    defaultMessage: 'This action cannot be undone. Deleting this course will remove all content, '
+      + 'learner data, and analytics associated with it.',
+  },
+  deleteCourseModalConfirmPrompt: {
+    id: 'course-authoring.studio-home.delete-course.modal.confirm-prompt',
+    defaultMessage: 'Type DELETE to delete the course',
+  },
+  deleteCourseModalConfirmPlaceholder: {
+    id: 'course-authoring.studio-home.delete-course.modal.confirm-placeholder',
+    defaultMessage: 'Type DELETE to confirm',
+  },
+  deleteCourseSuccess: {
+    id: 'course-authoring.studio-home.delete-course.success',
+    defaultMessage: 'Course deleted.',
+  },
+  deleteCourseFailure: {
+    id: 'course-authoring.studio-home.delete-course.failure',
+    defaultMessage: 'Course could not be deleted. Please try again.',
+  },
+  courseTitleLabel: {
+    id: 'course-authoring.studio-home.delete-course.modal.label.title',
+    defaultMessage: 'Name:',
+  },
+  courseOrgLabel: {
+    id: 'course-authoring.studio-home.delete-course.modal.label.org',
+    defaultMessage: 'Organization:',
+  },
+  courseNumberLabel: {
+    id: 'course-authoring.studio-home.delete-course.modal.label.number',
+    defaultMessage: 'Course number:',
+  },
+  courseRunLabel: {
+    id: 'course-authoring.studio-home.delete-course.modal.label.run',
+    defaultMessage: 'Course Run:',
+  },
   organizationTitle: {
     id: 'course-authoring.studio-home.organization.title',
     defaultMessage: 'Organization and library settings',

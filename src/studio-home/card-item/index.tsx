@@ -1,4 +1,9 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react';
 import { useSelector } from 'react-redux';
 import {
   Card,
@@ -7,6 +12,7 @@ import {
   Form,
   IconButton,
   Stack,
+  useToggle,
 } from '@openedx/paragon';
 import { AccessTime, ArrowForward, MoreHoriz } from '@openedx/paragon/icons';
 import { useIntl } from '@edx/frontend-platform/i18n';
@@ -16,9 +22,11 @@ import { Link } from 'react-router-dom';
 import { useWaffleFlags } from '@src/data/apiHooks';
 import { COURSE_CREATOR_STATES } from '@src/constants';
 import { parseLibraryKey } from '@src/generic/key-utils';
+import { isCurrentUserSuperuser } from '@src/generic/auth-utils';
 import classNames from 'classnames';
 import { getStudioHomeData } from '../data/selectors';
 import messages from '../messages';
+import CourseDeleteModal from './CourseDeleteModal';
 
 const PrevToNextName = ({ from, to }: { from: React.ReactNode, to?: React.ReactNode }) => (
   <Stack direction="horizontal" gap={2}>
@@ -186,8 +194,11 @@ const CardItem: React.FC<Props> = ({
     courseCreatorStatus,
     rerunCreatorStatus,
   } = useSelector(getStudioHomeData);
+  // Deleting a course is superuser-only; the endpoint enforces this too.
+  const canDeleteCourses = useMemo(() => isCurrentUserSuperuser(), []);
   const waffleFlags = useWaffleFlags();
   const cardRef = useRef<HTMLDivElement>(null);
+  const [isConfirmingDelete, confirmDelete, cancelDelete] = useToggle(false);
 
   const destinationUrl: string = path ?? (
     waffleFlags.useNewCourseOutlinePage && !isLibraries
@@ -271,6 +282,11 @@ const CardItem: React.FC<Props> = ({
               <Dropdown.Item href={lmsLink} target="_blank" rel="noopener noreferrer">
                 {intl.formatMessage(messages.viewLiveBtnText)}
               </Dropdown.Item>
+              {canDeleteCourses && !isLibraries && (
+                <Dropdown.Item onClick={confirmDelete}>
+                  {intl.formatMessage(messages.btnDeleteCourseText)}
+                </Dropdown.Item>
+              )}
             </Dropdown.Menu>
           </Dropdown>
           )}
@@ -294,6 +310,17 @@ const CardItem: React.FC<Props> = ({
           </Card.Status>
           )}
       </Card>
+      {isConfirmingDelete && (
+        <CourseDeleteModal
+          isOpen
+          close={cancelDelete}
+          courseKey={courseKey}
+          displayName={displayName}
+          org={org}
+          number={number}
+          run={run}
+        />
+      )}
     </div>
   );
 };
