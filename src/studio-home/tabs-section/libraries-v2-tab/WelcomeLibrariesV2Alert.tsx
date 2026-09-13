@@ -10,7 +10,7 @@ const libraryDocsLink = (
   <Hyperlink
     target="_blank"
     showLaunchIcon={false}
-    destination="https://docs.openedx.org/en/latest/educators/how-tos/course_development/create_new_library.html"
+    destination="https://whoacademy.atlassian.net/wiki/spaces/STUDIOHUB/pages/240648206/4.+Legacy+Libraries"
   >
     <FormattedMessage {...messages.alertLibrariesDocLinkText} />
   </Hyperlink>
