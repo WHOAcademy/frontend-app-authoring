@@ -70,3 +70,15 @@ export async function sendRequestForCourseCreator(): Promise<object> {
   const { data } = await getAuthenticatedHttpClient().post(getRequestCourseCreatorUrl());
   return camelCaseObject(data);
 }
+
+export const getCourseDeleteApiUrl = (courseId: string) => (
+  `${getApiBaseUrl()}/api/contentstore/v1/course_delete/${encodeURIComponent(courseId)}/`
+);
+
+/**
+* Delete a course. Superuser only; the API responds 403 otherwise.
+*/
+export async function deleteCourse(courseId: string): Promise<object> {
+  const { data } = await getAuthenticatedHttpClient().post(getCourseDeleteApiUrl(courseId));
+  return camelCaseObject(data);
+}

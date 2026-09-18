@@ -26,6 +26,7 @@ const useStudioHome = () => {
   const {
     courseCreatorSavingStatus,
     deleteNotificationSavingStatus,
+    deleteCourseSavingStatus,
   } = useSelector(getSavingStatuses);
   const [showNewCourseContainer, setShowNewCourseContainer] = useState(false);
   const isLoadingPage = studioHomeLoadingStatus === RequestStatus.IN_PROGRESS;
@@ -74,6 +75,15 @@ const useStudioHome = () => {
     }
   }, [deleteNotificationSavingStatus]);
 
+  useEffect(() => {
+    if (deleteCourseSavingStatus === RequestStatus.SUCCESSFUL) {
+      dispatch(updateSavingStatuses({ deleteCourseSavingStatus: '' }));
+      dispatch(fetchStudioHomeData());
+    } else if (deleteCourseSavingStatus === RequestStatus.FAILED) {
+      dispatch(updateSavingStatuses({ deleteCourseSavingStatus: '' }));
+    }
+  }, [deleteCourseSavingStatus]);
+
   const {
     allowCourseReruns,
     rerunCreatorStatus,
@@ -89,10 +99,10 @@ const useStudioHome = () => {
   const isShowEmailStaff = courseCreatorStatus === COURSE_CREATOR_STATES.disallowedForThisSite && !!studioRequestEmail;
   const isShowProcessing = allowCourseReruns && rerunCreatorStatus && inProcessCourseActions?.length > 0;
   const hasAbilityToCreateNewCourse = courseCreatorStatus === COURSE_CREATOR_STATES.granted;
-  const anyQueryIsPending = [deleteNotificationSavingStatus, courseCreatorSavingStatus, savingCreateRerunStatus]
-    .includes(RequestStatus.PENDING);
-  const anyQueryIsFailed = [deleteNotificationSavingStatus, courseCreatorSavingStatus, savingCreateRerunStatus]
-    .includes(RequestStatus.FAILED);
+  const anyQueryIsPending = [deleteNotificationSavingStatus, courseCreatorSavingStatus,
+    savingCreateRerunStatus, deleteCourseSavingStatus].includes(RequestStatus.PENDING);
+  const anyQueryIsFailed = [deleteNotificationSavingStatus, courseCreatorSavingStatus,
+    savingCreateRerunStatus, deleteCourseSavingStatus].includes(RequestStatus.FAILED);
 
   return {
     isLoadingPage,

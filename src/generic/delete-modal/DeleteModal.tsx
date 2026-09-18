@@ -20,6 +20,8 @@ interface DeleteModalProps {
   icon?: React.ElementType;
   buttonVariant?: 'tertiary' | 'brand' | 'primary' | 'danger';
   cancelButtonVariant?: 'tertiary' | 'brand' | 'primary' | 'default';
+  /** Blocks the confirm button, e.g. while a typed confirmation is incomplete. */
+  isDeleteDisabled?: boolean;
 }
 
 const DeleteModal = ({
@@ -34,6 +36,7 @@ const DeleteModal = ({
   cancelButtonVariant = 'default',
   btnLabel,
   icon,
+  isDeleteDisabled = false,
 }: DeleteModalProps) => {
   const intl = useIntl();
 
@@ -68,6 +71,7 @@ const DeleteModal = ({
             }}
             variant={buttonVariant}
             label={defaultBtnLabel}
+            disabled={isDeleteDisabled}
           />
         </ActionRow>
       )}

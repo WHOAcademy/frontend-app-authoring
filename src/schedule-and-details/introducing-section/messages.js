@@ -65,6 +65,18 @@ const messages = defineMessages({
     id: 'course-authoring.schedule-section.introducing.video-thumbnail-image.insert-card',
     defaultMessage: 'video thumbnail image',
   },
+  courseOverviewInfoText1: {
+    id: 'course-authoring.schedule-section.introducing.course-overview.info-text-1',
+    defaultMessage: 'The Course overview is meant to provide learner with a clear and concise description of a course, including its goals, objectives, content, and requirements.',
+  },
+  courseOverviewInfoText2: {
+    id: 'course-authoring.schedule-section.introducing.course-overview.info-text-2',
+    defaultMessage: 'The overview should give learners an idea of what they can expect to learn, how the course will be taught, what assignments and assessments will be required, and what resources will be available to them.',
+  },
+  courseOverviewButtonLabel: {
+    id: 'course-authoring.schedule-section.introducing.course-overview.button-label',
+    defaultMessage: 'Add/Edit Overview',
+  },
 });
 
 export default messages;

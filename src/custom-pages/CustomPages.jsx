@@ -57,7 +57,7 @@ const CustomPages = ({
   document.title = getPageHeadTitle(courseDetails?.name, intl.formatMessage(messages.heading));
 
   const { config } = useContext(AppContext);
-  const learningCourseURL = `${config.LEARNING_BASE_URL}/course/${courseId}`;
+  const learningCourseURL = `${config.LEARNING_EXPERIENCE_PLATFORM_URL}/coursewares/${courseId}`;
 
   useEffect(() => {
     dispatch(fetchCustomPages(courseId));

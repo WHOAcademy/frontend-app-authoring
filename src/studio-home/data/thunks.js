@@ -4,6 +4,7 @@ import {
   sendRequestForCourseCreator,
   handleCourseNotification,
   getStudioHomeCoursesV2,
+  deleteCourse,
 } from './api';
 import {
   fetchStudioHomeDataSuccess,
@@ -69,6 +70,21 @@ function handleDeleteNotificationQuery(url) {
   };
 }
 
+function deleteCourseQuery(courseId) {
+  return async (dispatch) => {
+    dispatch(updateSavingStatuses({ deleteCourseSavingStatus: RequestStatus.PENDING }));
+
+    try {
+      await deleteCourse(courseId);
+      dispatch(updateSavingStatuses({ deleteCourseSavingStatus: RequestStatus.SUCCESSFUL }));
+      return true;
+    } catch (error) {
+      dispatch(updateSavingStatuses({ deleteCourseSavingStatus: RequestStatus.FAILED }));
+      return false;
+    }
+  };
+}
+
 function requestCourseCreatorQuery() {
   return async (dispatch) => {
     dispatch(updateSavingStatuses({ courseCreatorSavingStatus: RequestStatus.PENDING }));
@@ -89,4 +105,5 @@ export {
   fetchOnlyStudioHomeData,
   requestCourseCreatorQuery,
   handleDeleteNotificationQuery,
+  deleteCourseQuery,
 };

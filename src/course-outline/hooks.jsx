@@ -77,6 +77,7 @@ const useCourseOutline = ({ courseId }) => {
     reindexLink,
     courseStructure,
     lmsLink,
+    lxpLink,
     notificationDismissUrl,
     discussionsSettings,
     discussionsIncontextLearnmoreUrl,
@@ -192,7 +193,7 @@ const useCourseOutline = ({ courseId }) => {
     handleExpandAll: () => {
       setSectionsExpanded((prevState) => !prevState);
     },
-    lmsLink,
+    lmsLink: lxpLink || lmsLink,
   };
 
   const handleEnableHighlightsSubmit = () => {

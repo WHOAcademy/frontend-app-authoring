@@ -42,7 +42,7 @@ const GradingSettings = ({ courseId }) => {
   } = useCourseSettings(courseId);
   const {
     mutate: updateGradingSettings,
-    isLoading: savePending,
+    isPending: savePending,
     isSuccess: savingStatus,
     isError: savingFailed,
   } = useGradingSettingUpdater(courseId);
@@ -84,10 +84,12 @@ const GradingSettings = ({ courseId }) => {
       setShowSuccessAlert(!showSuccessAlert);
       setShowSavePrompt(!showSavePrompt);
       setTimeout(() => setShowSuccessAlert(false), 15000);
-      setIsQueryPending(!isQueryPending);
+      setIsQueryPending(false);
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (savingFailed) {
+      setIsQueryPending(false);
     }
-  }, [savePending]);
+  }, [savePending, savingStatus, savingFailed]);
 
   if (isLoadingDenied) {
     return (

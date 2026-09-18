@@ -12,13 +12,11 @@ import {
   TransitionReplace,
 } from '@openedx/paragon';
 import { Info as InfoIcon } from '@openedx/paragon/icons';
-import TypeaheadDropdown from '../../editors/sharedComponents/TypeaheadDropdown';
 
 import AlertMessage from '../alert-message';
 import { STATEFUL_BUTTON_STATES } from '../../constants';
 import { RequestStatus, TOTAL_LENGTH_KEY } from '../../data/constants';
 import { getSavingStatus } from '../data/selectors';
-import { getStudioHomeData } from '../../studio-home/data/selectors';
 import { updatePostErrors } from '../data/slice';
 import { updateCreateOrRerunCourseQuery } from '../data/thunks';
 import { useCreateOrRerunCourse } from './hooks';
@@ -32,7 +30,6 @@ const CreateOrRerunCourseForm = ({
 }) => {
   const { courseId } = useParams();
   const savingStatus = useSelector(getSavingStatus);
-  const { allowToCreateNewOrg } = useSelector(getStudioHomeData);
   const runFieldReference = useRef(null);
   const displayNameFieldReference = useRef(null);
 
@@ -152,45 +149,26 @@ const CreateOrRerunCourseForm = ({
     onClickCancel();
   };
 
-  const handleCustomBlurForDropdown = (e) => {
-    // it needs to correct handleOnChange Form.Autosuggest
-    const { value, name } = e.target;
-    setFieldValue(name, value);
-    handleBlur(e);
+  const renderOrgField = (field) => {
+    const selectedOrg = field.options?.find((option) => option.id === field.value);
+    return (
+      <Dropdown className="mr-2">
+        <Dropdown.Toggle id={`${field.name}-dropdown`} variant="outline-primary">
+          {selectedOrg?.name || intl.formatMessage(messages.courseOrgNoOptions)}
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          {field.options?.map((option) => (
+            <Dropdown.Item
+              key={option.id}
+              onClick={() => setFieldValue(field.name, option.id)}
+            >
+              {option.name}
+            </Dropdown.Item>
+          ))}
+        </Dropdown.Menu>
+      </Dropdown>
+    );
   };
-
-  const renderOrgField = (field) => (allowToCreateNewOrg ? (
-    <TypeaheadDropdown
-      readOnly={false}
-      name={field.name}
-      value={field.value}
-      controlClassName={classNames({ 'is-invalid': hasErrorField(field.name) })}
-      options={field.options}
-      placeholder={field.placeholder}
-      handleBlur={handleCustomBlurForDropdown}
-      handleChange={(value) => setFieldValue(field.name, value)}
-      noOptionsMessage={intl.formatMessage(messages.courseOrgNoOptions)}
-      helpMessage=""
-      errorMessage=""
-      floatingLabel=""
-    />
-  ) : (
-    <Dropdown className="mr-2">
-      <Dropdown.Toggle id={`${field.name}-dropdown`} variant="outline-primary">
-        {field.value || intl.formatMessage(messages.courseOrgNoOptions)}
-      </Dropdown.Toggle>
-      <Dropdown.Menu>
-        {field.options?.map((value) => (
-          <Dropdown.Item
-            key={value}
-            onClick={() => setFieldValue(field.name, value)}
-          >
-            {value}
-          </Dropdown.Item>
-        ))}
-      </Dropdown.Menu>
-    </Dropdown>
-  ));
 
   useEffect(() => {
     // it needs to display the initial focus for the field depending on the current page

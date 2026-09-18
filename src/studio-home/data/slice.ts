@@ -34,8 +34,12 @@ const slice = createSlice({
       libraryLoadingStatus: RequestStatus.IN_PROGRESS as RequestStatusType,
     },
     savingStatuses: {
-      courseCreatorSavingStatus: '' as RequestStatusType | '',
-      deleteNotificationSavingStatus: '' as RequestStatusType | '',
+      courseCreatorSavingStatus: '',
+      deleteNotificationSavingStatus: '',
+    } as {
+      courseCreatorSavingStatus: RequestStatusType | '';
+      deleteNotificationSavingStatus: RequestStatusType | '';
+      deleteCourseSavingStatus?: RequestStatusType | '';
     },
     studioHomeData: {} as {
       allowCourseReruns?: boolean;
