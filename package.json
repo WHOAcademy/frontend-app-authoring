@@ -101,10 +101,11 @@
     "uuid": "^11.1.0",
     "xmlchecker": "^0.1.0",
     "yup": "0.32.11",
-    "@edx/frontend-plugin-authoring": "git+https://YOUR_TOKEN@github.com/WHOAcademy/frontend-plugin-authoring#main"
+    "@edx/frontend-plugin-authoring": "git+ssh://git@github.com/WHOAcademy/frontend-plugin-authoring.git#feat/run-build"
   },
   "overrides": {
-    "react-intl": "6.8.9"
+    "react-intl": "6.8.9",
+    "axios": "1.20.0"
   },
   "devDependencies": {
     "@edx/stylelint-config-edx": "2.3.3",
