@@ -2,16 +2,30 @@ import React from 'react';
 import { IntlProvider } from '@edx/frontend-platform/i18n';
 import { Helmet } from 'react-helmet';
 import { render } from '@testing-library/react';
-import { getConfig } from '@edx/frontend-platform';
+import { getConfig, mergeConfig } from '@edx/frontend-platform';
 import Head from './Head';
 
 describe('Head', () => {
   const props = {};
+  const originalSiteName = getConfig().SITE_NAME;
+
+  afterEach(() => {
+    mergeConfig({ SITE_NAME: originalSiteName });
+  });
+
   it('should match render title tag and favicon with the site configuration values', () => {
+    mergeConfig({ SITE_NAME: 'WHO Academy' });
     render(<IntlProvider locale="en"><Head {...props} /></IntlProvider>);
     const helmet = Helmet.peek();
-    expect(helmet.title).toEqual(`Studio | ${getConfig().SITE_NAME}`);
+    expect(helmet.title).toEqual('Studio | WHO Academy');
     expect(helmet.linkTags[0].rel).toEqual('shortcut icon');
     expect(helmet.linkTags[0].href).toEqual(getConfig().FAVICON_URL);
+  });
+
+  it('should render only "Studio" when no site name is configured', () => {
+    mergeConfig({ SITE_NAME: '' });
+    render(<IntlProvider locale="en"><Head {...props} /></IntlProvider>);
+    const helmet = Helmet.peek();
+    expect(helmet.title).toEqual('Studio');
   });
 });
