@@ -6,6 +6,11 @@ const messages = defineMessages({
     defaultMessage: 'Studio | {siteName}',
     description: 'Title tag',
   },
+  'course-authoring.page.title.no-site-name': {
+    id: 'course-authoring.page.title.no-site-name',
+    defaultMessage: 'Studio',
+    description: 'Title tag used when no site name is configured',
+  },
 });
 
 export default messages;

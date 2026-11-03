@@ -7,6 +7,10 @@ import messages from './messages';
 
 const Head = () => {
   const intl = useIntl();
+  const siteName = getConfig().SITE_NAME?.trim();
+  const title = siteName
+    ? intl.formatMessage(messages['course-authoring.page.title'], { siteName })
+    : intl.formatMessage(messages['course-authoring.page.title.no-site-name']);
 
   useEffect(() => {
     document.querySelectorAll('link[rel*="icon"]:not([data-react-helmet])')
@@ -15,9 +19,7 @@ const Head = () => {
 
   return (
     <Helmet>
-      <title>
-        {intl.formatMessage(messages['course-authoring.page.title'], { siteName: getConfig().SITE_NAME })}
-      </title>
+      <title>{title}</title>
       <link rel="shortcut icon" href={getConfig().FAVICON_URL} type="image/x-icon" />
     </Helmet>
   );
